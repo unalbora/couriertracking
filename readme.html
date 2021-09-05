@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README</title>
+</head>
+<body>
+
+<h1>Courier Tracking</h1>
+<p> Courier tracking uygulaması amazon web servisleri üzerinden çalışmaktadır. Uygulamaya erişim ec2-3-135-188-185.us-east-2.compute.amazonaws.com linki üzerinden gerçekleştirilmektedir. Aşağıdaki 2 restful servis
+üzerinden iletişim gerçekleşmektedir. Servislerin çağrılması için postman benzeri rest client uygulaması gerekmektedir.
+<ul>
+<li>
+<p> Postman uygulaması ile <a href="">ec2-3-135-188-185.us-east-2.compute.amazonaws.com:8080/courier/enter</a> post isteği ile courier girişi yapılmaktadır. Post isteğinin body kısmı row/json file şeklinde ve aşağıdaki formatta yapılmalıdır.
+<p style="color:blue"> {
+	"courier": 8,
+	"lat": 40.9632463,
+	"lng": 29.0630908,
+	"time": "2021-09-04T19:52:39.771114"
+	}
+</li>
+<li>
+<p> Postman uygulaması ile <a href="">ec2-3-135-188-185.us-east-2.compute.amazonaws.com:8080/courier/distance/{courierId}</a> get isteği ile Total Travel Distance sonucu alınmaktadır.
+<p style="color:blue"> ec2-3-135-188-185.us-east-2.compute.amazonaws.com:8080/courier/distance/8
+</li>
+</body>
+</html>
