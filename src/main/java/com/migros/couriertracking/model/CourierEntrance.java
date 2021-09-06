@@ -8,6 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Kuryenin mağazaya giriş bilgilerini içeren model sınıfıdır.
+ * 
+ * @author BORA
+ *
+ */
 @Entity
 @Table(name="courierentrances")
 public class CourierEntrance {

@@ -5,6 +5,12 @@ import org.slf4j.LoggerFactory;
 
 import com.migros.couriertracking.service.CourierService;
 
+/**
+ * Kuryenin toplam gezinti mesafesini hesaplamak için kullanılan util sınıfıdır.
+ * 
+ * @author BORA
+ *
+ */
 public class ArithmeticUtil {
 	private static final ArithmeticUtil instance = new ArithmeticUtil();
 	

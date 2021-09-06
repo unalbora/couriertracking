@@ -19,6 +19,12 @@ import com.migros.couriertracking.utility.manager.FileManager;
 import com.migros.couriertracking.utility.mapper.CourierMapper;
 import com.migros.couriertracking.utility.util.ArithmeticUtil;
 
+/**
+ * Kurye işlemleri için gerçekleştirilen kayıt altına alma ve hesaplama servislerini içerir.
+ * 
+ * @author BORA
+ *
+ */
 @Service
 public class CourierService implements ICourierService {
 
