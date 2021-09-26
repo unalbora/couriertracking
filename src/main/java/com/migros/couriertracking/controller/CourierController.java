@@ -19,7 +19,7 @@ import com.migros.couriertracking.model.Courier;
  *
  */
 @RestController
-@RequestMapping("/couriers")
+@RequestMapping("/courier")
 public class CourierController {
 
 	private final ICourierService courierService;
@@ -44,7 +44,7 @@ public class CourierController {
 	 * @param courierId Kurye id
 	 * @return
 	 */
-	@GetMapping("/distance/{courierId}")
+	@GetMapping("/{courierId}/distance")
 	public ResponseEntity<Double> measureCourierTravel(@PathVariable Long courierId) {
 		return new ResponseEntity<Double>(courierService.measureCourierTravel(courierId), HttpStatus.OK);
 	}
