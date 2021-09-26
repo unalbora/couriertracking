@@ -3,8 +3,6 @@ package com.migros.couriertracking.utility.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.migros.couriertracking.service.CourierService;
-
 /**
  * Kuryenin toplam gezinti mesafesini hesaplamak için kullanılan util sınıfıdır.
  * 
@@ -14,7 +12,12 @@ import com.migros.couriertracking.service.CourierService;
 public class ArithmeticUtil {
 	private static final ArithmeticUtil instance = new ArithmeticUtil();
 	
-	Logger logger = LoggerFactory.getLogger(CourierService.class);
+	Logger logger = LoggerFactory.getLogger(ArithmeticUtil.class);
+	
+	private static final double RADIUS_OF_WORLD = 6378.137;
+	private static final int DEGREE = 180;
+	private static final int TO_METER = 1000;
+	private static final int HALF = 2;
 	
 	private ArithmeticUtil() {}
 	
@@ -24,14 +27,21 @@ public class ArithmeticUtil {
 	
 	public double measureDistance(double firstLat, double firstLng, double secondLat, double secondLng) {
 		logger.debug("Measure distance operation is started");
-		double RadiusOfWorld = 6378.137;
-		double distanceLat = (secondLat * Math.PI / 180) - (firstLat * Math.PI / 180);
-		double distanceLng = (secondLng * Math.PI / 180) - (firstLng * Math.PI / 180);
-		double a = (Math.sin(distanceLat/2) * Math.sin(distanceLat/2)) + (Math.cos(firstLat * Math.PI /180) * Math.cos(secondLat * Math.PI /180)
-				* Math.sin(distanceLng/2) * Math.sin(distanceLng/2));
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		double distance = RadiusOfWorld * c;
+		double distanceLat = measureDifference(secondLat, firstLat);
+		double distanceLng = measureDifference(secondLng, firstLng);
+		double angularDistance = getAngularDistance(distanceLat, distanceLng, firstLat, secondLat);
+		double distance = RADIUS_OF_WORLD * angularDistance;
 		logger.debug("Measure distance operation is finished");
-		return distance * 1000;
+		return distance * TO_METER;
+	}
+	
+	private double measureDifference(double second, double first) {
+		return (second * Math.PI / DEGREE) - (first * Math.PI / DEGREE);
+	}
+	
+	private double getAngularDistance(double distanceLat, double distanceLng, double firstLat, double secondLat) {
+		double a = (Math.sin(distanceLat/HALF) * Math.sin(distanceLat/HALF)) + (Math.cos(firstLat * Math.PI /DEGREE) * Math.cos(secondLat * Math.PI /DEGREE)
+				* Math.sin(distanceLng/HALF) * Math.sin(distanceLng/HALF));
+		return HALF * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	}
 }

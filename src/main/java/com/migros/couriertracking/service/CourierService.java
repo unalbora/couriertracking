@@ -27,6 +27,9 @@ import com.migros.couriertracking.utility.util.ArithmeticUtil;
  */
 @Service
 public class CourierService implements ICourierService {
+	
+	private static final int DISTANCE = 100;
+	private static final int MINUTE = 60;
 
 	private final CourierRepository courierRepository;
 	private final CourierEntranceRepository courierEntranceRepository;
@@ -34,7 +37,6 @@ public class CourierService implements ICourierService {
 	Logger logger = LoggerFactory.getLogger(CourierService.class);
 
 	public CourierService(CourierRepository courierRepository, CourierEntranceRepository courierEntranceRepository) {
-		super();
 		this.courierRepository = courierRepository;
 		this.courierEntranceRepository = courierEntranceRepository;
 	}
@@ -60,7 +62,7 @@ public class CourierService implements ICourierService {
 	}
 	
 	private boolean getEnteredStore(Courier courier, Store store) {
-		if (ArithmeticUtil.getInstance().measureDistance(courier.getLat(), courier.getLng(), store.getLat(), store.getLng()) <= 100) {
+		if (ArithmeticUtil.getInstance().measureDistance(courier.getLat(), courier.getLng(), store.getLat(), store.getLng()) <= DISTANCE) {
 			if (isEntrance(courier, store))
 				return true;
 		}
@@ -72,7 +74,7 @@ public class CourierService implements ICourierService {
 		for (CourierEntrance courierEntrance : courierEntrances) {
 			if (courierEntrance.getStoreName() != null && courierEntrance.getStoreName().equals(store.getName())) {
 				long seconds = ChronoUnit.SECONDS.between(newCourier.getTime(), courierEntrance.getTime());
-				if (Math.abs(seconds) < 60)
+				if (Math.abs(seconds) < MINUTE)
 					return false;
 			}
 		}

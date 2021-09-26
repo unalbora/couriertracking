@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.migros.couriertracking.iservice.ICourierService;
 import com.migros.couriertracking.model.Courier;
-import com.migros.couriertracking.service.CourierService;
 /**
  * Courier Tracking uygulamasında sunulan servislerin erişimi için hazırlanmış olan get ve post tiplerinde
  * olmak üzere rest servislerini içerir.
@@ -19,13 +19,12 @@ import com.migros.couriertracking.service.CourierService;
  *
  */
 @RestController
-@RequestMapping("/courier")
+@RequestMapping("/couriers")
 public class CourierController {
 
-	private final CourierService courierService;
+	private final ICourierService courierService;
 
-	public CourierController(CourierService courierService) {
-		super();
+	public CourierController(ICourierService courierService) {
 		this.courierService = courierService;
 	}
 	
